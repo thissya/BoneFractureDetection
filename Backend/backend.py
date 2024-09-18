@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-model = YOLO("D:\\clg studies\\SEM5\\IVA\\Micro project\\Backend\\best.pt")
+model = YOLO("best.pt")
 
 CLASS_LABELS = {
     0: "elbow positive",
