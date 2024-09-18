@@ -23,7 +23,7 @@ function ImageUpload() {
         formData.append("image", image);
 
         try {
-            const response = await fetch("https://BoneFractureDetection.onrender.com/predict", {
+            const response = await fetch("https://bonefracturedetection.onrender.com/predict", {
                 method: "POST",
                 body: formData,
             });
