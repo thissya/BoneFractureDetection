@@ -27,10 +27,16 @@ function ImageUpload() {
                 method: "POST",
                 body: formData,
             });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch predictions.");
+            }
+
             const data = await response.json();
-            setPredictions(data.predictions); 
+            setPredictions(data.predictions);
+            
         } catch (err) {
-            console.error("Error:", err);  
+            console.error("Error:", err);
             setError("An error occurred while uploading the image.");
         }
         setLoading(false);

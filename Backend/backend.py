@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 from ultralytics import YOLO
 from PIL import Image
 from flask_cors import CORS
+import os
+from io import BytesIO
+from PIL import Image
+
 
 app = Flask(__name__)
 CORS(app,resources={r"/*": {"origins": "http://localhost:5173"}})
@@ -23,32 +27,21 @@ def predict():
     image_file = request.files.get('image')
     
     if image_file:
-        image = Image.open(image_file)
+        image = Image.open(BytesIO(image_file.read()))
         
         results = model(image)
         
         predictions = []
         for result in results:
             if hasattr(result, 'boxes'):
-                boxes = result.boxes.xyxy.tolist()  
-                confidences = result.boxes.conf.tolist()  
                 classes = result.boxes.cls.tolist()  
-                
                 predicted_labels = [CLASS_LABELS.get(int(cls), "Unknown") for cls in classes]
-                
                 predictions.extend(predicted_labels)
-                
-                # predictions.append(
-                # {
-                #     # 'boxes': boxes,
-                #     # 'confidences': confidences,
-                #     'labels': predicted_labels
-                # })
-
+        
         return jsonify({'predictions': predictions})
     else:
         return jsonify({'error': 'No image provided'}), 400
 
+    
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
