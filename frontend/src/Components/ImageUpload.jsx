@@ -23,7 +23,7 @@ function ImageUpload() {
         formData.append("image", image);
 
         try {
-            const response = await fetch("https://bonefracturedetection-backend.onrender.com/predict", {
+            const response = await fetch("http://127.0.0.1:5000/predict", {
                 method: "POST",
                 body: formData,
             });
@@ -34,7 +34,7 @@ function ImageUpload() {
 
             const data = await response.json();
             setPredictions(data.predictions);
-            
+
         } catch (err) {
             console.error("Error:", err);
             setError("An error occurred while uploading the image.");
