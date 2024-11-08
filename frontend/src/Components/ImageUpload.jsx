@@ -23,7 +23,7 @@ function ImageUpload() {
         formData.append("image", image);
 
         try {
-            const response = await fetch("https://bonefracturedetection.onrender.com/predict", {
+            const response = await fetch("http://127.0.0.1:5000/predict", {
                 method: "POST",
                 body: formData,
             });
@@ -37,27 +37,27 @@ function ImageUpload() {
     };
 
     return (
-        <div className="max-w-lg mx-auto mt-16 bg-white shadow-lg rounded-lg p-8">
-            <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Bone Fracture Detection</h1>
-            <p className="text-gray-600 text-center mb-6">Upload an X-ray image to detect fractures.</p>
+        <div className="max-w-lg mx-auto mt-16 bg-gray-200 shadow-lg rounded-lg p-8">
+            <h1 className="text-3xl font-bold mb-6 text-center text-black-700">Bone Fracture Detection</h1>
+            <p className="text-black-700 text-center mb-6">Upload an X-ray image to detect fractures.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <div className="border-2 border-dashed border-gray-700 rounded-lg p-6 text-center">
                     <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
-                        className="block w-full text-sm text-gray-600
+                        className="block w-full text-sm text-black-800
                        file:mr-4 file:py-2 file:px-4
                        file:rounded-full file:border-0
                        file:text-sm file:font-semibold
-                       file:bg-indigo-50 file:text-indigo-700
+                       file:bg-black-50 file:text-black-700
                        hover:file:bg-indigo-100 cursor-pointer"/>
-                    <p className="text-sm text-gray-500 mt-2">Accepted formats: JPG, PNG, GIF</p>
+                    <p className="text-sm text-black-600 mt-2">Accepted formats: JPG, PNG, GIF</p>
                 </div>
 
                 <button type="submit"
-                    className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-700 transition duration-300"
+                    className="w-full bg-zinc-700 text-white py-2 px-4 rounded-md shadow-md hover:bg-zinc-800 transition duration-300"
                 >
                     {loading ? "Processing..." : "Upload and Detect"}
                 </button>
@@ -65,7 +65,6 @@ function ImageUpload() {
 
             {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
-            {/* Display the predictions or "No fracture" message */}
             {!loading && predictions.length === 0 && !error && (
                 <div className="mt-8 p-6 bg-blue-100 rounded-lg shadow-lg">
                     <h2 className="text-2xl font-semibold text-blue-700">No fracture detected</h2>

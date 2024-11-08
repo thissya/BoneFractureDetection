@@ -3,7 +3,7 @@ import ImageUpload from './Components/ImageUpload';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-slate-900 p-4">
       <ImageUpload />
     </div>
   );
